@@ -1,5 +1,3 @@
-  GNU nano 2.2.6                                                 File: NPRHourlyNews.py
-
 from bs4 import BeautifulSoup
 import urllib.request
 import re
