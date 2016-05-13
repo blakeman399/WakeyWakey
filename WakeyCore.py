@@ -1,5 +1,3 @@
-from bs4 import BeautifulSoup
-import urllib.request
 import datetime
 import time
 import re
@@ -32,11 +30,9 @@ def youtubePlayList(url):
         #print(link.get("data-title"))
         log = open("c:\\logs\\goats.txt", "a")
         print("https://www.youtube.com/watch?v=" + link.get("data-video-id"), file = log)
-        playList = "c:\logs\goats.txt"
-        playerVLC(playList)
-        return
+        
 
 
 def playerVLC(Media):
+    print("C:\\Users\\bmastrud\\Desktop\\vlc-2.2.3\\vlc " + Media)
     os.system("C:\\Users\\bmastrud\\Desktop\\vlc-2.2.3\\vlc " + Media)
-    return
