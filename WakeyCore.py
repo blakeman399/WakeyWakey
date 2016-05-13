@@ -7,7 +7,7 @@ import os
 import subprocess
 
 
-def Parser(url):
+def PodcastParser(url):
     print("Starting Requests"); url = urllib.request.urlopen(url)
     print("Request Done"); content = url.read()
     print("Start Parsing"); soup = BeautifulSoup(content, "html.parser")
