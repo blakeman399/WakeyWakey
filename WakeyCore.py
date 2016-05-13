@@ -5,6 +5,7 @@ import time
 import re
 import os
 import subprocess
+import contextlib
 
 
 def PodcastParser(url):
@@ -20,23 +21,22 @@ def PodcastParser(url):
 def youtubePlayList(url):
     #Removes old playlist file-Supresses error if file does not exist
     with contextlib.suppress(FileNotFoundError):
-        os.remove("c:\\logs\\goats.txt") 
-    URL = url
-    r = requests.get(url)
-    soup = BeautifulSoup(r.content, "html.parser")
+        os.remove("c:\\logs\\goats.txt")
+
+    url = urllib.request.urlopen(url)
+    content = url.read()
+    soup = BeautifulSoup(content, "html.parser")
     links = soup.find_all("tr", {"class": "pl-video"})
     time.sleep(2)
     for link in links:
         #print(link.get("data-title"))
         log = open("c:\\logs\\goats.txt", "a")
         print("https://www.youtube.com/watch?v=" + link.get("data-video-id"), file = log)
-        test = "c:\\logs\\goats.txt"
+        playList = "c:\logs\goats.txt"
+        playerVLC(playList)
         return
 
 
 def playerVLC(Media):
-    os.system("C:\\Users\\bmastrud\\Desktop\\vlc-2.2.3\\vlc -Incurse --play-and-exit 2> error.log " + Media)
+    os.system("C:\\Users\\bmastrud\\Desktop\\vlc-2.2.3\\vlc " + Media)
     return
-
-        
-
