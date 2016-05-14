@@ -33,7 +33,19 @@ def youtubePlayList(url):
         log = open("./goats.txt", "a")
         print("https://www.youtube.com/watch?v=" + link.get("data-video-id"), file = log)
         playList = "./goats.txt"
-        
+
+
+def RssFeed(RssURL):
+    with contextlib.suppress(FileNotFoundError):
+        os.remove("./rss.txt")
+    url = urllib.request.urlopen(RssURL)
+    content = url.read()
+    soup = BeautifulSoup(content, "html.parser")
+    items = soup.find_all('item')
+    for item in items:
+        title = item.find('title').text
+        log = open("./rss.txt", "a")
+        print(title, file = log)
 
 
 def playerVLC(Media):
