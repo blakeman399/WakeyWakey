@@ -38,5 +38,5 @@ def youtubePlayList(url):
 
 
 def playerVLC(Media):
-    print("Starting VLC)
+    print("Starting VLC")
     os.system("vlc " + Media)
