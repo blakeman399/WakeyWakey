@@ -1,3 +1,5 @@
+from bs4 import BeautifulSoup
+import urllib.request
 import datetime
 import time
 import re
@@ -19,7 +21,7 @@ def PodcastParser(url):
 def youtubePlayList(url):
     #Removes old playlist file-Supresses error if file does not exist
     with contextlib.suppress(FileNotFoundError):
-        os.remove("c:\\logs\\goats.txt")
+        os.remove("./goats.txt")
 
     url = urllib.request.urlopen(url)
     content = url.read()
@@ -28,11 +30,11 @@ def youtubePlayList(url):
     time.sleep(2)
     for link in links:
         #print(link.get("data-title"))
-        log = open("c:\\logs\\goats.txt", "a")
+        log = open("./goats.txt", "a")
         print("https://www.youtube.com/watch?v=" + link.get("data-video-id"), file = log)
         
 
 
 def playerVLC(Media):
-    print("C:\\Users\\bmastrud\\Desktop\\vlc-2.2.3\\vlc " + Media)
-    os.system("C:\\Users\\bmastrud\\Desktop\\vlc-2.2.3\\vlc " + Media)
+    print("Starting VLC)
+    os.system("vlc " + Media)
