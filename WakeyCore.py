@@ -32,6 +32,8 @@ def youtubePlayList(url):
         #print(link.get("data-title"))
         log = open("./goats.txt", "a")
         print("https://www.youtube.com/watch?v=" + link.get("data-video-id"), file = log)
+        playList = "./goats.txt"
+        playerVLC(playList)
         
 
 
