@@ -7,6 +7,9 @@ import os
 import subprocess
 import contextlib
 
+filePath = "c:\\logs\\"
+#Windows Path
+vlcPlayer = "C:\\Users\\bmastrud\Desktop\\vlc-2.2.3\\"
 
 def PodcastParser(url):
     print("Starting Requests"); url = urllib.request.urlopen(url)
@@ -21,7 +24,7 @@ def PodcastParser(url):
 def youtubePlayList(url):
     #Removes old playlist file-Supresses error if file does not exist
     with contextlib.suppress(FileNotFoundError):
-        os.remove("./goats.txt")
+        os.remove(filePath +"playList.txt")
 
     url = urllib.request.urlopen(url)
     content = url.read()
@@ -30,24 +33,24 @@ def youtubePlayList(url):
     time.sleep(2)
     for link in links:
         #print(link.get("data-title"))
-        log = open("./goats.txt", "a")
+        log = open(filePath +"playList.txt", "a")
         print("https://www.youtube.com/watch?v=" + link.get("data-video-id"), file = log)
-        playList = "./goats.txt"
+        playList = filePath +"playList.txt"
 
 
 def RssFeed(RssURL):
     with contextlib.suppress(FileNotFoundError):
-        os.remove("./rss.txt")
+        os.remove(filePath + "rss.txt")
     url = urllib.request.urlopen(RssURL)
     content = url.read()
     soup = BeautifulSoup(content, "html.parser")
     items = soup.find_all('item')
     for item in items:
         title = item.find('title').text
-        log = open("./rss.txt", "a")
+        log = open(filePath + "rss.txt", "a")
         print(title, file = log)
 
 
 def playerVLC(Media):
     print("Starting VLC")
-    os.system("vlc " + Media)
+    os.system(vlcPlayer + "vlc " + Media)
