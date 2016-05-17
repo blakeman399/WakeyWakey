@@ -4,5 +4,10 @@ The purpose of this repo is to create a collection of useful methods that can be
 #Early Prototype
 This repo will be changing rapidly in the coming months as it is more of a proof of concept in it's current state. 
 
+#Dependencies
+request = {sudo} pip install request
+BeautifulSoup = {sudo} pip install bs4
+Tkinter = {sudo} pip install tkinter
+
 #Contribute
-If you would like to contribute feel free to do a pull request for new features!
+If you would like to contribute feel free to do a pull request!
