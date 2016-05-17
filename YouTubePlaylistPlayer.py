@@ -24,5 +24,4 @@ button_1 = Button(root, text="Start Playlist")
 button_1.bind("<Button-1>", youTube)
 button_1.pack()
 
-
 root.mainloop()
