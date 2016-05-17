@@ -5,17 +5,11 @@ from tkinter import *
 filePath= "c:\\logs\\" #Windows Path
 
 #MainWindow
-root.mainloop()
 root = Tk()
 root.title("Youtube Player")
 
 #Playlist Entry Box
 v = StringVar(); e = Entry(root, textvariable=v, width=60) ;e.pack()
-
-#Buttons
-button_1 = Button(root, text="Start Playlist")
-button_1.bind("<Button-1>", youTube)
-button_1.pack()
 
 #YouTube Callback(WakeyCore)
 def youTube(event):
@@ -25,3 +19,10 @@ def youTube(event):
     youtubePlayList(youList)
     playerVLC(playList)
 
+#Buttons
+button_1 = Button(root, text="Start Playlist")
+button_1.bind("<Button-1>", youTube)
+button_1.pack()
+
+
+root.mainloop()
