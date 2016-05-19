@@ -1,16 +1,16 @@
 from bs4 import BeautifulSoup
 import urllib.request
-import datetime
+from gtts import gTTS
 import time
 import re
 import os
-import subprocess
 import contextlib
 
-filePath = "c:\\logs\\"
 #Windows Path
+filePath = "C:\\logs\\"
 vlcPlayer = "C:\\Users\\bmastrud\Desktop\\vlc-2.2.3\\"
 
+#NPR Hourly Podcast Parser
 def PodcastParser(url):
     print("Starting Requests"); url = urllib.request.urlopen(url)
     print("Request Done"); content = url.read()
@@ -19,8 +19,8 @@ def PodcastParser(url):
     variable = soup.find('a', href=re.compile('http.*\.mp3'))['href']
     print("Done Parsing", variable)
     playerVLC(variable)
-    return
 
+#YouTubeParser - Creates txt file with playlists urls
 def youtubePlayList(url):
     #Removes old playlist file-Supresses error if file does not exist
     with contextlib.suppress(FileNotFoundError):
@@ -35,9 +35,8 @@ def youtubePlayList(url):
         #print(link.get("data-title"))
         log = open(filePath +"playList.txt", "a")
         print("https://www.youtube.com/watch?v=" + link.get("data-video-id"), file = log)
-        playList = filePath +"playList.txt"
 
-
+#RSSParser - Finds Headlines
 def RssFeed(RssURL):
     with contextlib.suppress(FileNotFoundError):
         os.remove(filePath + "rss.txt")
@@ -49,8 +48,12 @@ def RssFeed(RssURL):
         title = item.find('title').text
         log = open(filePath + "rss.txt", "a")
         print(title, file = log)
+#Google TTS
+def GTTS(txt):
+    tts = gTTS(text=txt, lang='en')
+    tts.save(filePath + "hello.mp3")
 
-
+#VLCFunction
 def playerVLC(Media):
     print("Starting VLC")
     os.system(vlcPlayer + "vlc " + Media)
