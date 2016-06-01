@@ -13,11 +13,11 @@ vlcPlayer = "C:\\Users\\bmastrud\Desktop\\vlc-2.2.3\\"
 
 # NPR Hourly Podcast Parser
 def PodcastParser(url):
-    print("Starting Requests");
+    print("Starting Requests")
     url = urllib.request.urlopen(url)
-    print("Request Done");
+    print("Request Done")
     content = url.read()
-    print("Start Parsing");
+    print("Start Parsing")
     soup = BeautifulSoup(content, "html.parser")
     # Find first mp3 link(newest)
     variable = soup.find('a', href=re.compile('http.*\.mp3'))['href']

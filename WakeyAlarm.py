@@ -1,19 +1,24 @@
 from WakeyCore import youtubePlayList, playerVLC
-import datetime
+from WakeyHueAlert import *
 import time
 
 AlarmTime = input("What time shall I wake you sir? ")
-PlayList = input("Playlist? ")
-playList = "C:\\logs\\goats.txt"
+#PlayList = input("Playlist? ")
+#playList = "C:\\logs\\goats.txt"
 
-def AlarmClock(AlarmTime):
+
+def AlarmClock(Time):
     currentTime = time.strftime("%H:%M")
-    if(currentTime == AlarmTime):
-        youtubePlayList(PlayList)
-        playerVLC(playList)
+    if currentTime == AlarmTime:
+        print("Alarm!!!!")
+        hueyBlue()
+        #youtubePlayList(PlayList)
+        #playerVLC(playList)
+        time.sleep(60)
+        AlarmClock(AlarmTime)
     else:
-        print("Waiting")
-        time.sleep(10)
+        print(currentTime)
+        time.sleep(5)
         AlarmClock(AlarmTime)
 
 AlarmClock(AlarmTime)
