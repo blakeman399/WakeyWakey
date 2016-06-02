@@ -5,6 +5,7 @@ import time
 import re
 import os
 import contextlib
+import requests
 
 # Windows Path
 filePath = "C:\\logs\\"
@@ -66,3 +67,15 @@ def GTTS(txt):
 def playerVLC(Media):
     print("Starting VLC")
     os.system(vlcPlayer + "vlc " + Media)
+
+def youtubeSearch(Query):
+    youtube = "https://www.youtube.com/results?search_query="
+    youtubePlay = "https://www.youtube.com"
+    inputVar = Query
+    results = youtube + inputVar.replace(" ", "+")
+    r = requests.get(results)
+    data = r.text
+    soup = BeautifulSoup(data, 'html.parser')
+    for link in soup.find_all('a'):
+        test = youtubePlay + soup.find('a', href=re.compile('/watch'))['href']
+        return test
