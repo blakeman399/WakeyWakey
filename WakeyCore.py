@@ -5,11 +5,12 @@ import time
 import re
 import os
 import contextlib
-import requests
+#import requests
+from googleapiclient.discovery import build
 
 # Windows Path
 filePath = "C:\\logs\\"
-vlcPlayer = "C:\\Users\\bmastrud\Desktop\\vlc-2.2.3\\"
+vlcPlayer = "C:\\Users\\blake\Desktop\\vlc-2.2.3\\"
 
 
 # NPR Hourly Podcast Parser
@@ -68,7 +69,34 @@ def playerVLC(Media):
     print("Starting VLC")
     os.system(vlcPlayer + "vlc " + Media)
 
-def youtubeSearch(Query):
+
+# YouTube Player
+DEVELOPER_KEY = ""
+YOUTUBE_API_SERVICE_NAME = "youtube"
+YOUTUBE_API_VERSION = "v3"
+
+
+def youtube_search(options):
+    youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
+                    developerKey=DEVELOPER_KEY)
+    search_response = youtube.search().list(
+        q=options,
+        part="id",
+    ).execute()
+
+    videos = []
+
+    for search_result in search_response.get("items", []):
+        if search_result["id"]["kind"] == "youtube#video":
+            videos.append(search_result["id"]["videoId"])
+
+            youtubePlay = "https://www.youtube.com/watch?v="
+
+    playerVLC(youtubePlay + videos[0])
+
+
+# Legacy youtube search player
+'''def youtubeSearch(Query):
     youtube = "https://www.youtube.com/results?search_query="
     youtubePlay = "https://www.youtube.com"
     inputVar = Query
@@ -78,4 +106,5 @@ def youtubeSearch(Query):
     soup = BeautifulSoup(data, 'html.parser')
     for link in soup.find_all('a'):
         test = youtubePlay + soup.find('a', href=re.compile('/watch'))['href']
-        return test
+        print(test)
+        return test'''
